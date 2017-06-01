@@ -4,7 +4,7 @@ T5MsgReplayer
 		Program for replay T100 point from t5 message, support log files from Qtserver/Maxstudio/mxt-app
 
 		usage: t5replay [-h] [--version] [-f [File]] [-d {0,1,2}] [-x XRES] [-y YRES]
-				[-i INTERVAL] [--finger FINGER] [-r REPORTID [REPORTID ...]]
+				[-i INTERVAL] [--finger FINGER] [-r <OBJECT> <Min ID>[<MAX ID>]]
 				[-cl CLEAR] [-v {0,1,2,3,4}]
 
 
@@ -25,7 +25,7 @@ useage:
 		  -i INTERVAL, --interval INTERVAL
 					replaying interval for each frame (default: 10)
 		  --finger FINGER       max finger count support (default: 10)
-		  -r REPORTID [REPORTID ...], --reportid REPORTID [REPORTID ...]
+		  -r [-r <OBJECT> <Min ID>[<MAX ID>]], --[-r <OBJECT> <Min ID>[<MAX ID>]]
 					<n> <min> <max>: T<n> report <min id> <max id>
 					(default: None)
 		  -cl CLEAR, --clear CLEAR
