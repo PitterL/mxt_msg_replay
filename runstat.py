@@ -23,7 +23,7 @@ def runstat(args=None):
     if args.yres:
         t5.set_param(t5, 'yres', args.yres)
     if args.clear:
-        t5.set_param(t5, 'clear', args.clear)
+        t5.set_param(t5, 'clear', int(args.clear, 16))
     if args.interval:
         t5.set_param(t5, 'interval', args.interval)
     if args.finger:
@@ -34,7 +34,7 @@ def runstat(args=None):
     path = args.filename
     if path:
         if os.path.exists(path):
-            t5.replay(path, args.log)
+            t5.replay(path, args.datatype)
         else:
             v.msg(v.WARN, 'Un-exist file name \'{:s}\''.format(path))
 
@@ -55,9 +55,9 @@ def parse_args(args=None):
                         metavar='File',
                         help='where the t5 message log file will be load')
 
-    parser.add_argument('-l', '--log', required=False,
+    parser.add_argument('-d', '--datatype', required=False,
+                        type=int,
                         choices=range(3),
-                        nargs=1,
                         default=0,
                         help='message type: <1> QTServer(default) <2> Maxstudio <3> Mxt-app')
 
@@ -73,7 +73,7 @@ def parse_args(args=None):
 
     parser.add_argument('-i', '--interval', required=False,
                         type=int,
-                        default=5,
+                        default=10,
                         help='replaying interval for each frame')
 
     parser.add_argument('--finger', required=False,
@@ -87,8 +87,9 @@ def parse_args(args=None):
                         help='<n> <min> <max>: T<n> report <min id> <max id>')
 
     parser.add_argument('-cl', '--clear', required=False,
-                        action='store_true',
-                        help='Whether the piont in canvas will be clean when release')
+                        type=str,
+                        default='0xffff',
+                        help='Mask value, whether the piont in canvas will be clean when release(for each bit, 1 clear, 0 not clear')
 
     parser.add_argument('-v', '--verbose',
                         type=int,
@@ -98,9 +99,11 @@ def parse_args(args=None):
 
     return parser
 
-cmd = r"-x 720 -y 1367 -v 3 -r 100 46 55 -f log\gen_messageprocessor_t5_20170531_151514.csv".split()
+#cmd = r"-x 720 -y 1367 -v 3 -r 100 46 55 -f log\example_qtserver.csv".split()
+#cmd = r"python runstat.py -x 1280 -y 720 -d 1 -i 50 -r 100 49 59 -cl 0xd -f log\example_maxstudio.csv".split()
+#cmd = r"-x 1280 -y 720 -d 2 -i 50 -r 100 49 59 -cl 0xd -f log\example_mxtapp.csv".split()
 #cmd =r"t5replay -h".split()
-#cmd = None
+cmd = None
 if __name__ == "__main__":
 
     runstat(cmd)

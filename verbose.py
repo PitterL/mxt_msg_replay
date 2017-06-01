@@ -10,9 +10,13 @@ class VerboseMessage(object):
 
     @staticmethod
     def msg(*arg):
-        if len(arg) > 1:
-            if VerboseMessage.v_level >= arg[0]:
-                print(arg[1:])
+        if VerboseMessage.v_level < arg[0]:
+            return
+
+        if len(arg) > 2:
+            print(arg[1:])
+        elif len(arg) == 2:
+            print(arg[1])
 
     @staticmethod
     def set(level):
